@@ -11,7 +11,7 @@ const Signup: React.FC = () => {
 
   const handleSendOtp = async () => {
     try {
-      await axios.post('http://localhost:5000/api/auth/send-otp', { name, email });
+      await axios.post('https://note-app-backend-2-delr.onrender.com/api/auth/send-otp', { name, email });
       setStep('otp');
       setError('');
     } catch (err: any) {
@@ -21,7 +21,7 @@ const Signup: React.FC = () => {
 
   const handleVerifyOtp = async () => {
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/verify-otp', { email, otp });
+      const res = await axios.post('https://note-app-backend-2-delr.onrender.com/api/auth/verify-otp', { email, otp });
       localStorage.setItem('token', res.data.token);
       window.location.href = '/dashboard';
     } catch (err: any) {
@@ -36,7 +36,7 @@ const Signup: React.FC = () => {
     }
 
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/google-login', {
+      const res = await axios.post('https://note-app-backend-2-delr.onrender.com/api/auth/google-login', {
         token: credentialResponse.credential,
       });
 

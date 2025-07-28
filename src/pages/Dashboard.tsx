@@ -34,7 +34,7 @@ const Dashboard: React.FC = () => {
 
   const fetchNotes = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/notes', {
+      const res = await axios.get('https://note-app-backend-2-delr.onrender.com/api/notes', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -49,7 +49,7 @@ const Dashboard: React.FC = () => {
     if (!newNote.trim()) return;
     try {
       await axios.post(
-        'http://localhost:5000/api/notes',
+        'https://note-app-backend-2-delr.onrender.com/api/notes',
         { content: newNote },
         {
           headers: {
@@ -66,7 +66,7 @@ const Dashboard: React.FC = () => {
 
   const deleteNote = async (id: string) => {
     try {
-      await axios.delete(`http://localhost:5000/api/notes/${id}`, {
+      await axios.delete(`https://note-app-backend-2-delr.onrender.com/api/notes/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
