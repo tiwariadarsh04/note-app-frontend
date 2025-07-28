@@ -50,54 +50,67 @@ const Signup: React.FC = () => {
 
   return (
     <div style={styles.wrapper}>
-      <div style={styles.card}>
-        <h2 style={styles.heading}>Create Account</h2>
+      <div style={styles.leftPane}>
+        <div style={styles.card}>
+          <h2 style={styles.heading}>Sign up</h2>
 
-        {step === 'form' ? (
-          <>
-            <input
-              type="text"
-              placeholder="Full Name"
-              style={styles.input}
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-            <input
-              type="email"
-              placeholder="Email"
-              style={styles.input}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <button style={styles.buttonBlue} onClick={handleSendOtp}>
-              Send OTP
-            </button>
-          </>
-        ) : (
-          <>
-            <input
-              type="text"
-              placeholder="Enter OTP"
-              style={{ ...styles.input, borderColor: '#10b981' }}
-              value={otp}
-              onChange={(e) => setOtp(e.target.value)}
-            />
-            <button style={styles.buttonGreen} onClick={handleVerifyOtp}>
-              Verify OTP
-            </button>
-          </>
-        )}
+          {step === 'form' ? (
+            <>
+              <input
+                type="text"
+                placeholder="Full Name"
+                style={styles.input}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+              <input
+                type="email"
+                placeholder="Email"
+                style={styles.input}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <button style={styles.button} onClick={handleSendOtp}>
+                Send OTP
+              </button>
+            </>
+          ) : (
+            <>
+              <input
+                type="text"
+                placeholder="Enter OTP"
+                style={styles.input}
+                value={otp}
+                onChange={(e) => setOtp(e.target.value)}
+              />
+              <button style={{ ...styles.button, backgroundColor: '#16a34a' }} onClick={handleVerifyOtp}>
+                Verify OTP
+              </button>
+            </>
+          )}
 
-        <div style={styles.or}>OR</div>
+          <div style={styles.or}>OR</div>
 
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <GoogleLogin
-            onSuccess={handleGoogleLogin}
-            onError={() => setError('Google login failed')}
-          />
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <GoogleLogin
+              onSuccess={handleGoogleLogin}
+              onError={() => setError('Google login failed')}
+            />
+          </div>
+
+          <p style={styles.footerText}>
+            Already have an account?{' '}
+            <a href="/login" style={styles.link}>
+              Sign in
+            </a>
+          </p>
+
+          {error && <p style={styles.error}>{error}</p>}
         </div>
+      </div>
 
-        {error && <p style={styles.error}>{error}</p>}
+      <div style={styles.rightPane}>
+        <img src="/bg.jpg" alt="Background" style={styles.image} />
       </div>
     </div>
   );
@@ -105,77 +118,90 @@ const Signup: React.FC = () => {
 
 const styles: { [key: string]: React.CSSProperties } = {
   wrapper: {
-    minHeight: '100vh',
-    background: 'linear-gradient(to bottom right, #cbd5e1, #ffffff, #c7d2fe)',
     display: 'flex',
-    alignItems: 'center',
+    minHeight: '100vh',
+    fontFamily: 'sans-serif',
+  },
+  leftPane: {
+    flex: 1,
+    display: 'flex',
     justifyContent: 'center',
-    padding: '20px',
+    alignItems: 'center',
+    background: '#f8fafc',
+    padding: '40px',
+  },
+  rightPane: {
+    flex: 1,
+    overflow: 'hidden',
+    borderTopLeftRadius: '40px',
+    borderBottomLeftRadius: '40px',
+  },
+  image: {
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+    borderTopLeftRadius: '40px',
+    borderBottomLeftRadius: '40px',
   },
   card: {
     width: '100%',
     maxWidth: '400px',
-    background: 'rgba(255, 255, 255, 0.95)',
+    background: '#ffffff',
     padding: '32px',
-    borderRadius: '24px',
-    boxShadow: '0 15px 30px rgba(0,0,0,0.1)',
-    border: '1px solid #dbeafe',
-    backdropFilter: 'blur(12px)',
-    animation: 'fade-in 0.6s ease-in-out',
+    borderRadius: '20px',
+    boxShadow: '0 8px 24px rgba(0,0,0,0.08)',
+    border: '1px solid #e5e7eb',
   },
   heading: {
-    fontSize: '32px',
-    fontWeight: 800,
-    textAlign: 'center',
-    color: '#4f46e5',
+    fontSize: '28px',
+    fontWeight: 700,
+    color: '#1e3a8a',
     marginBottom: '24px',
+    textAlign: 'center',
   },
   input: {
     width: '100%',
-    marginBottom: '16px',
     padding: '12px 16px',
-    borderRadius: '12px',
-    border: '1px solid #d1d5db',
+    marginBottom: '16px',
     fontSize: '16px',
+    border: '1px solid #cbd5e1',
+    borderRadius: '10px',
     outline: 'none',
-    transition: 'border 0.3s',
   },
-  buttonBlue: {
+  button: {
     width: '100%',
     padding: '12px',
-    backgroundColor: '#4f46e5',
+    backgroundColor: '#2563eb',
     color: '#fff',
     fontWeight: 600,
-    borderRadius: '12px',
+    fontSize: '16px',
+    borderRadius: '10px',
     border: 'none',
     cursor: 'pointer',
-    boxShadow: '0 4px 12px rgba(79, 70, 229, 0.2)',
-    transition: 'background 0.3s',
-  },
-  buttonGreen: {
-    width: '100%',
-    padding: '12px',
-    backgroundColor: '#10b981',
-    color: '#fff',
-    fontWeight: 600,
-    borderRadius: '12px',
-    border: 'none',
-    cursor: 'pointer',
-    boxShadow: '0 4px 12px rgba(16, 185, 129, 0.2)',
-    transition: 'background 0.3s',
+    marginBottom: '16px',
   },
   or: {
-    margin: '24px 0 16px',
     textAlign: 'center',
+    margin: '20px 0',
     color: '#6b7280',
     fontWeight: 500,
   },
+  footerText: {
+    marginTop: '16px',
+    textAlign: 'center',
+    color: '#4b5563',
+    fontSize: '14px',
+  },
+  link: {
+    color: '#2563eb',
+    textDecoration: 'none',
+    fontWeight: 600,
+  },
   error: {
     marginTop: '16px',
-    color: '#ef4444',
+    color: '#dc2626',
     textAlign: 'center',
     fontWeight: 500,
-    animation: 'pulse 1s infinite',
   },
 };
 

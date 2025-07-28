@@ -51,109 +51,167 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div style={styles.container}>
-      <div style={styles.card}>
-        <h2 style={styles.title}>Login</h2>
+    <div style={styles.page}>
+      <div style={styles.container}>
+        <div style={styles.formSection}>
+          <h2 style={styles.heading}>Welcome Back</h2>
+          <p style={styles.subheading}>Please login to your account</p>
 
-        {step === 'form' ? (
-          <>
-            <input
-              type="email"
-              placeholder="Enter your email"
-              style={styles.input}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+          {step === 'form' ? (
+            <>
+              <input
+                type="email"
+                placeholder="Enter your email"
+                style={styles.input}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <button style={styles.buttonPrimary} onClick={handleSendOtp}>
+                Send OTP
+              </button>
+            </>
+          ) : (
+            <>
+              <input
+                type="text"
+                placeholder="Enter OTP"
+                style={styles.input}
+                value={otp}
+                onChange={(e) => setOtp(e.target.value)}
+              />
+              <button style={styles.buttonSuccess} onClick={handleVerifyOtp}>
+                Verify OTP
+              </button>
+            </>
+          )}
+
+          <div style={styles.or}>OR</div>
+
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 20 }}>
+            <GoogleLogin
+              onSuccess={handleGoogleLogin}
+              onError={() => setError('Google login failed')}
             />
-            <button style={{ ...styles.button, backgroundColor: '#2563eb' }} onClick={handleSendOtp}>
-              Send OTP
-            </button>
-          </>
-        ) : (
-          <>
-            <input
-              type="text"
-              placeholder="Enter OTP"
-              style={styles.input}
-              value={otp}
-              onChange={(e) => setOtp(e.target.value)}
-            />
-            <button style={{ ...styles.button, backgroundColor: '#16a34a' }} onClick={handleVerifyOtp}>
-              Verify OTP
-            </button>
-          </>
-        )}
+          </div>
 
-        <div style={styles.divider}>OR</div>
+          {error && <p style={styles.error}>{error}</p>}
 
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <GoogleLogin
-            onSuccess={handleGoogleLogin}
-            onError={() => setError('Google login failed')}
-          />
+          <p style={styles.footer}>
+            Don’t have an account? <a href="/signup" style={styles.link}>Sign up</a>
+          </p>
         </div>
 
-        {error && <p style={styles.error}>{error}</p>}
+        <div style={styles.imageSection}>
+          <img src="/bg.jpg" alt="Background" style={styles.image} />
+        </div>
       </div>
     </div>
   );
 };
 
 const styles: { [key: string]: React.CSSProperties } = {
-  container: {
+  page: {
+    height: '100vh',
     display: 'flex',
+    backgroundColor: '#f8fafc',
     justifyContent: 'center',
     alignItems: 'center',
-    minHeight: '100vh',
-    background: 'linear-gradient(135deg, #ece9e6, #ffffff)',
-    padding: '20px',
+    padding: '16px',
   },
-  card: {
-    backgroundColor: '#fff',
-    padding: '40px 30px',
-    borderRadius: '12px',
-    maxWidth: '400px',
+  container: {
+    display: 'flex',
     width: '100%',
-    boxShadow: '0 4px 16px rgba(0,0,0,0.1)',
+    maxWidth: '1000px',
+    height: '600px',
+    backgroundColor: '#ffffff',
+    borderRadius: '24px',
+    boxShadow: '0 20px 50px rgba(0,0,0,0.1)',
+    overflow: 'hidden',
   },
-  title: {
-    fontSize: '28px',
-    fontWeight: 'bold',
-    marginBottom: '24px',
-    textAlign: 'center',
-    color: '#333',
+  formSection: {
+    flex: 1,
+    padding: '48px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
+  heading: {
+    fontSize: '32px',
+    fontWeight: 700,
+    marginBottom: '8px',
+    color: '#1e293b',
+  },
+  subheading: {
+    fontSize: '16px',
+    color: '#64748b',
+    marginBottom: '32px',
   },
   input: {
-    width: '100%',
-    padding: '12px 14px',
+    padding: '14px 16px',
+    borderRadius: '10px',
+    border: '1px solid #cbd5e1',
+    fontSize: '16px',
     marginBottom: '16px',
-    borderRadius: '8px',
-    border: '1px solid #ccc',
-    fontSize: '16px',
     outline: 'none',
-    transition: 'border 0.2s ease',
   },
-  button: {
-    width: '100%',
-    padding: '12px',
-    borderRadius: '8px',
-    border: 'none',
+  buttonPrimary: {
+    padding: '14px',
+    backgroundColor: '#2563eb',
     color: '#fff',
-    fontSize: '16px',
+    border: 'none',
+    borderRadius: '10px',
     fontWeight: 600,
+    fontSize: '16px',
     cursor: 'pointer',
-    transition: 'background-color 0.2s ease',
-    marginBottom: '12px',
+    marginBottom: '20px',
   },
-  divider: {
+  buttonSuccess: {
+    padding: '14px',
+    backgroundColor: '#10b981',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '10px',
+    fontWeight: 600,
+    fontSize: '16px',
+    cursor: 'pointer',
+    marginBottom: '20px',
+  },
+  or: {
     textAlign: 'center',
-    color: '#aaa',
-    margin: '20px 0',
+    color: '#94a3b8',
+    margin: '16px 0',
+    fontWeight: 500,
   },
   error: {
-    marginTop: '12px',
-    color: '#dc2626',
+    color: '#ef4444',
     textAlign: 'center',
+    marginBottom: '16px',
     fontWeight: 500,
+  },
+  footer: {
+    textAlign: 'center',
+    color: '#475569',
+    fontSize: '14px',
+  },
+  link: {
+    color: '#2563eb',
+    fontWeight: 600,
+    textDecoration: 'none',
+    marginLeft: '4px',
+  },
+  imageSection: {
+    flex: 1,
+    backgroundColor: '#4f46e5',
+    overflow: 'hidden',
+    borderTopRightRadius: '24px',
+    borderBottomRightRadius: '24px',
+  },
+  image: {
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+    borderTopRightRadius: '24px',
+    borderBottomRightRadius: '24px',
   },
 };
 

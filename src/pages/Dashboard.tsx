@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-// Decode JWT to extract name
 const decodeToken = (token: string) => {
   try {
     const payload = token.split('.')[1];
@@ -79,8 +78,9 @@ const Dashboard: React.FC = () => {
   };
 
   return (
-    <div style={styles.page}>
-      <div style={styles.container}>
+    <div style={styles.wrapper}>
+      <img src="/bg.jpg" alt="bg" style={styles.bg} />
+      <div style={styles.card}>
         <div style={styles.header}>
           <h2 style={styles.heading}>Welcome, {user?.name || 'User'} 👋</h2>
           <button
@@ -137,21 +137,34 @@ const Dashboard: React.FC = () => {
 };
 
 const styles: { [key: string]: React.CSSProperties } = {
-  page: {
+  wrapper: {
     minHeight: '100vh',
-    background: 'linear-gradient(to right, #dbeafe, #f0f9ff)',
+    position: 'relative',
+    overflow: 'hidden',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: '40px 16px',
+    padding: '20px',
   },
-  container: {
-    backgroundColor: '#fff',
-    borderRadius: '20px',
-    padding: '32px',
-    maxWidth: '700px',
+  bg: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
     width: '100%',
-    boxShadow: '0 8px 24px rgba(0,0,0,0.1)',
+    height: '100%',
+    objectFit: 'cover',
+    zIndex: 0,
+    borderRadius: '32px',
+  },
+  card: {
+    zIndex: 1,
+    backgroundColor: 'rgba(255, 255, 255, 0.92)',
+    padding: '32px',
+    borderRadius: '24px',
+    width: '100%',
+    maxWidth: '700px',
+    boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
+    backdropFilter: 'blur(10px)',
   },
   header: {
     display: 'flex',
@@ -169,19 +182,19 @@ const styles: { [key: string]: React.CSSProperties } = {
     color: '#fff',
     border: 'none',
     padding: '10px 16px',
-    borderRadius: '8px',
+    borderRadius: '10px',
     fontWeight: 600,
     cursor: 'pointer',
   },
   inputGroup: {
     display: 'flex',
-    gap: '10px',
+    gap: '12px',
     marginBottom: '20px',
   },
   input: {
     flex: 1,
     padding: '12px',
-    borderRadius: '10px',
+    borderRadius: '12px',
     border: '1px solid #cbd5e1',
     fontSize: '16px',
     outline: 'none',
@@ -191,7 +204,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     color: '#fff',
     border: 'none',
     padding: '12px 20px',
-    borderRadius: '10px',
+    borderRadius: '12px',
     fontWeight: 600,
     cursor: 'pointer',
   },
@@ -212,7 +225,6 @@ const styles: { [key: string]: React.CSSProperties } = {
     borderRadius: '12px',
     border: '1px solid #c7d2fe',
     boxShadow: '0 4px 12px rgba(0,0,0,0.06)',
-    transition: 'transform 0.2s',
   },
   noteText: {
     fontSize: '16px',
